@@ -12,7 +12,7 @@
 
 typedef long        off_t;
 
-#ifndef ARCH_CPU_64BIT
+#if __riscv_xlen == 32
 typedef unsigned int size_t;
 typedef signed int   ssize_t;  /* Used for a count of bytes or an error indication. */
 #else

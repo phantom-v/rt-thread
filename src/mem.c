@@ -98,14 +98,14 @@ struct heap_mem
     /* magic and used flag */
     rt_uint16_t magic;
     rt_uint16_t used;
-#ifdef ARCH_CPU_64BIT
+#if __riscv_xlen == 64
     rt_uint32_t resv;
 #endif
 
     rt_size_t next, prev;
 
 #ifdef RT_USING_MEMTRACE
-#ifdef ARCH_CPU_64BIT
+#if __riscv_xlen == 64
     rt_uint8_t thread[8];
 #else
     rt_uint8_t thread[4];   /* thread name */
@@ -119,7 +119,7 @@ static rt_uint8_t *heap_ptr;
 /** the last entry, always unused! */
 static struct heap_mem *heap_end;
 
-#ifdef ARCH_CPU_64BIT
+#if __riscv_xlen == 64
 #define MIN_SIZE 24
 #else
 #define MIN_SIZE 12

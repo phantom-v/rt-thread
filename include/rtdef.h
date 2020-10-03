@@ -67,7 +67,7 @@ typedef unsigned char                   rt_uint8_t;     /**<  8bit unsigned inte
 typedef unsigned short                  rt_uint16_t;    /**< 16bit unsigned integer type */
 typedef unsigned int                    rt_uint32_t;    /**< 32bit unsigned integer type */
 
-#ifdef ARCH_CPU_64BIT
+#if __riscv_xlen == 64
 typedef signed long                     rt_int64_t;     /**< 64bit integer type */
 typedef unsigned long                   rt_uint64_t;    /**< 64bit unsigned integer type */
 #else

@@ -14,7 +14,7 @@
 #include <rtconfig.h>
 
 /* bytes of register width  */
-#ifdef ARCH_CPU_64BIT
+#if __riscv_xlen == 64
 #define STORE                   sd
 #define LOAD                    ld
 #define REGBYTES                8

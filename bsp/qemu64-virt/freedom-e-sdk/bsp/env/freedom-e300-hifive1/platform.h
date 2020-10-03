@@ -4,8 +4,13 @@
 #define _SIFIVE_PLATFORM_H
 
 // Some things missing from the official encoding.h
-#define MCAUSE_INT         0x80000000
-#define MCAUSE_CAUSE       0x7FFFFFFF
+#if __riscv_xlen == 32
+#define MCAUSE_INT         (1U << 31)
+#else
+#define MCAUSE_INT         (1ULL << 63)
+#endif
+
+#define MCAUSE_CAUSE       (~MCAUSE_INT)
 
 #include "sifive/const.h"
 #include "sifive/devices/aon.h"
