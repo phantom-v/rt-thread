@@ -38,13 +38,12 @@ static rt_err_t usart_configure(struct rt_serial_device *serial,
     RT_ASSERT(serial != RT_NULL);
     RT_ASSERT(cfg != RT_NULL);
  
-    GPIO_REG(GPIO_IOF_SEL) &= ~IOF0_UART0_MASK;
-    GPIO_REG(GPIO_IOF_EN) |= IOF0_UART0_MASK;
+    uint32_t divisor = get_cpu_freq() / (16 * cfg->baud_rate);
+    UART0_REG(UART_LCR) = UART_LCR_DLAB;
+    UART0_REG(UART_DLL) = divisor & 0xff;
+    UART0_REG(UART_DLM) = (divisor >> 8) & 0xff;
 
-    UART0_REG(UART_REG_DIV) = get_cpu_freq() / cfg->baud_rate - 1;
-    UART0_REG(UART_REG_TXCTRL) |= UART_TXEN;
-    UART0_REG(UART_REG_RXCTRL) |= UART_RXEN;
-    UART0_REG(UART_REG_IE) = UART_IP_RXWM;
+    UART0_REG(UART_LCR) = UART_LCR_8BIT | UART_LCR_PNONE;
 
     return RT_EOK;
 }
@@ -67,18 +66,16 @@ static rt_err_t usart_control(struct rt_serial_device *serial,
 
 static int usart_putc(struct rt_serial_device *serial, char c)
 {
-    while (UART0_REG(UART_REG_TXFIFO) & 0x80000000) ;
-    UART0_REG(UART_REG_TXFIFO) = c;
-
+    while ((UART0_REG(UART_LSR) & UART_LSR_THRE) == 0);
+    UART0_REG(UART_THR) = c;
     return 0;
 }
 
 static int usart_getc(struct rt_serial_device *serial)
 {
-    rt_int32_t val = UART0_REG(UART_REG_RXFIFO);
-    if (val > 0)
-        return (rt_uint8_t)val;
-    else
+    if (UART0_REG(UART_LSR) & UART_LSR_DR) 
+      return UART0_REG(UART_RHR);
+    else 
         return -1;
 }
 

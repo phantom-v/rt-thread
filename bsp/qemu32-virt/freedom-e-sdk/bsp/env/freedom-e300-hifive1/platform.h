@@ -32,7 +32,7 @@
 #define PRCI_CTRL_ADDR _AC(0x10008000,UL)
 #define OTP_CTRL_ADDR _AC(0x10010000,UL)
 #define GPIO_CTRL_ADDR _AC(0x10012000,UL)
-#define UART0_CTRL_ADDR _AC(0x10013000,UL)
+#define UART0_CTRL_ADDR _AC(0x10000000,UL)
 #define SPI0_CTRL_ADDR _AC(0x10014000,UL)
 #define PWM0_CTRL_ADDR _AC(0x10015000,UL)
 #define UART1_CTRL_ADDR _AC(0x10023000,UL)
@@ -98,6 +98,7 @@
 #define INT_PWM2_BASE 48
 
 // Helper functions
+#define _REG8(p, i) (*(volatile uint8_t *) ((p) + (i)))
 #define _REG32(p, i) (*(volatile uint32_t *) ((p) + (i)))
 #define _REG32P(p, i) ((volatile uint32_t *) ((p) + (i)))
 #define AON_REG(offset) _REG32(AON_CTRL_ADDR, offset)
@@ -112,7 +113,7 @@
 #define SPI0_REG(offset) _REG32(SPI0_CTRL_ADDR, offset)
 #define SPI1_REG(offset) _REG32(SPI1_CTRL_ADDR, offset)
 #define SPI2_REG(offset) _REG32(SPI2_CTRL_ADDR, offset)
-#define UART0_REG(offset) _REG32(UART0_CTRL_ADDR, offset)
+#define UART0_REG(offset) _REG8(UART0_CTRL_ADDR, offset)
 #define UART1_REG(offset) _REG32(UART1_CTRL_ADDR, offset)
 
 // Misc

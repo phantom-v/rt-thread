@@ -177,10 +177,12 @@ unsigned long get_cpu_freq()
 
 static void uart_init(size_t baud_rate)
 {
-  GPIO_REG(GPIO_IOF_SEL) &= ~IOF0_UART0_MASK;
-  GPIO_REG(GPIO_IOF_EN) |= IOF0_UART0_MASK;
-  UART0_REG(UART_REG_DIV) = get_cpu_freq() / baud_rate - 1;
-  UART0_REG(UART_REG_TXCTRL) |= UART_TXEN;
+    uint32_t divisor = get_cpu_freq() / (16 * baud_rate);
+    UART0_REG(UART_LCR) = UART_LCR_DLAB;
+    UART0_REG(UART_DLL) = divisor & 0xff;
+    UART0_REG(UART_DLM) = (divisor >> 8) & 0xff;
+
+    UART0_REG(UART_LCR) = UART_LCR_8BIT | UART_LCR_PNONE;
 }
 
 

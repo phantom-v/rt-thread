@@ -52,8 +52,8 @@ void *__wrap_memset(void *s, int c, size_t n)
 
 static void rt_hw_clock_init(void)
 {
-    use_default_clocks();
-    use_pll(0, 0, 1, 31, 1);
+    // use_default_clocks();
+    // use_pll(0, 0, 1, 31, 1);
 }
 
 static void rt_hw_timer_init(void)
