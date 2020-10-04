@@ -1,6 +1,8 @@
 all:
-	@scons
+	@PYTHONDONTWRITEBYTECODE=True scons
 	qemu-system-riscv64 -nographic -machine virt -kernel rtthread.elf -bios none
 
 clean:
-	@scons -c
+	@PYTHONDONTWRITEBYTECODE=True scons -c
+	rm -rf build rtthread.bin rtthread.elf rtthread.map
+

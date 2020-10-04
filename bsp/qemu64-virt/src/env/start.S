@@ -1,5 +1,5 @@
 // See LICENSE for license details.
-#include <sifive/smp.h>
+#include <smp.h>
 
 /* This is defined in sifive/platform.h, but that can't be included from
  * assembly. */
