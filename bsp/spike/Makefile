@@ -1,6 +1,6 @@
 all:
 	@PYTHONDONTWRITEBYTECODE=True scons
-	qemu-system-riscv64 -nographic -machine virt -kernel rtthread.elf -bios none
+	spike -H --rbb-port=9824 rtthread.elf & sleep 1; openocd -f spike.cfg
 
 clean:
 	@PYTHONDONTWRITEBYTECODE=True scons -c

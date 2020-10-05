@@ -1,7 +1,7 @@
 // See LICENSE for license details.
 
-#ifndef _SIFIVE_UART_H
-#define _SIFIVE_UART_H
+#ifndef _UART_H
+#define _UART_H
 
 /* ns16550a Register offsets */
 #define UART_RHR   0x00  // Receiver Holding Register 
@@ -16,7 +16,7 @@
 #define UART_SPR   0x07  // Scratch Pad Register 
 #define UART_DLL   0x00  // Divisor LSB (LCR_DLAB) 
 #define UART_DLM   0x01  // Divisor MSB (LCR_DLAB) 
-#define UART_SSDR  0x05  // Prescaler's Division Factor (LCR_DLAB) 
+#define UART_PSD   0x05  // Prescaler's Division Factor (LCR_DLAB) 
 
 
 /* LCR Register */
@@ -43,4 +43,4 @@
 #define UART_LSR_TE     0x40  // Transmitter Empty 
 #define UART_LSR_FIFOE  0x80  // FIFO Data Error
 
-#endif /* _SIFIVE_UART_H */
+#endif /* _UART_H */
