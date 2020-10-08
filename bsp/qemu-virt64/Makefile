@@ -2,11 +2,11 @@ all: run
 
 run:
 	@PYTHONDONTWRITEBYTECODE=True scons
-	spike rtthread.elf
+	qemu-system-riscv64 -nographic -machine virt -kernel rtthread.elf -bios none
 
 debug:
 	@PYTHONDONTWRITEBYTECODE=True scons
-	spike -H --rbb-port=9824 rtthread.elf & sleep 1; openocd -f spike.cfg
+	qemu-system-riscv64 -nographic -machine virt -kernel rtthread.elf -bios none -s -S
 
 clean:
 	@PYTHONDONTWRITEBYTECODE=True scons -c
