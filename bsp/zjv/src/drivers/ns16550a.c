@@ -38,12 +38,12 @@ static rt_err_t usart_configure(struct rt_serial_device *serial,
     RT_ASSERT(serial != RT_NULL);
     RT_ASSERT(cfg != RT_NULL);
  
-    uint32_t divisor = get_cpu_freq() / (16 * cfg->baud_rate);
-    UART0_REG(UART_LCR) = UART_LCR_DLAB;
-    UART0_REG(UART_DLL) = divisor & 0xff;
-    UART0_REG(UART_DLM) = (divisor >> 8) & 0xff;
+    // uint32_t divisor = get_cpu_freq() / (16 * cfg->baud_rate);
+    // UART0_REG(UART_LCR) = UART_LCR_DLAB;
+    // UART0_REG(UART_DLL) = divisor & 0xff;
+    // UART0_REG(UART_DLM) = (divisor >> 8) & 0xff;
 
-    UART0_REG(UART_LCR) = UART_LCR_8BIT | UART_LCR_PNONE;
+    // UART0_REG(UART_LCR) = UART_LCR_8BIT | UART_LCR_PNONE;
 
     return RT_EOK;
 }

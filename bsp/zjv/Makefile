@@ -10,5 +10,5 @@ debug:
 
 clean:
 	@PYTHONDONTWRITEBYTECODE=True scons -c
-	rm -rf build rtthread.bin rtthread.elf rtthread.map
+	rm -rf build rtthread.bin rtthread.elf rtthread.map rtthread.bin.txt
 

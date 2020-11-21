@@ -10,13 +10,13 @@ if os.getenv('RTT_CC'):
 
 if  CROSS_TOOL == 'gcc':
     PLATFORM    = 'gcc'
-    EXEC_PATH   = r'/opt/unknown-gcc/bin'
+    EXEC_PATH   = r'~/toolchain/bin'
 else:
     print('Please make sure your toolchains is GNU GCC!')
     exit(0)
 
 if os.getenv('RTT_EXEC_PATH'):
-   EXEC_PATH = os.getenv('RTT_EXEC_PATH')
+    EXEC_PATH = os.getenv('RTT_EXEC_PATH')
 
 BUILD = 'debug'
 #BUILD = 'release'
@@ -25,6 +25,7 @@ CORE = 'risc-v'
 MAP_FILE = 'rtthread.map'
 LINK_FILE = './src/env/flash.lds'
 TARGET_NAME = 'rtthread.bin'
+HEX_NAME = 'rtthread.bin.txt'
 
 #------- GCC settings ----------------------------------------------------------
 if PLATFORM == 'gcc':
@@ -61,3 +62,4 @@ if PLATFORM == 'gcc':
 
     POST_ACTION = OBJCPY + ' -O binary $TARGET ' + TARGET_NAME + '\n'
     POST_ACTION += SIZE + ' $TARGET\n'
+    POST_ACTION += 'od -v -An -tx8 ' + TARGET_NAME + '>' + HEX_NAME + '\n'
